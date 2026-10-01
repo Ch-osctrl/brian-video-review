@@ -318,7 +318,9 @@
   </script>
 <script>
 const resourceVideo=document.querySelector('video');
+function sizeResourceLinks(){const panel=document.getElementById('resource-links');if(!resourceVideo.videoWidth)return;const scale=Math.min(resourceVideo.clientWidth/resourceVideo.videoWidth,resourceVideo.clientHeight/resourceVideo.videoHeight);const width=resourceVideo.videoWidth*scale,height=resourceVideo.videoHeight*scale;Object.assign(panel.style,{left:((resourceVideo.clientWidth-width)/2)+'px',top:((resourceVideo.clientHeight-height)/2)+'px',width:width+'px',height:height+'px',right:'auto',bottom:'auto'})}
 function syncResourceLinks(){for(const link of document.querySelectorAll('.resource-hit'))link.style.display=resourceVideo.currentTime>=Number(link.dataset.at)?'block':'none'}
 resourceVideo.addEventListener('timeupdate',syncResourceLinks);resourceVideo.addEventListener('seeked',syncResourceLinks);
+resourceVideo.addEventListener('loadedmetadata',sizeResourceLinks);window.addEventListener('resize',sizeResourceLinks);sizeResourceLinks();
 </script></body>
 </html>
